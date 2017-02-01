@@ -24,7 +24,6 @@ bool HeldLeft;
 FVector HMDPositionDelta;
 FVector LastHMDPosition;
 
-AItem *Keycard;
 
 //////////////////////////////////////////////////////////////////////////
 // AHypoxiaCharacter
@@ -78,25 +77,10 @@ void AHypoxiaCharacter::BeginPlay() {
 	FirstPersonCameraComponent->bLockToHmd = false;
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	HeldRight = true;
+	HeldRight = false;
 	HeldLeft = false;
-
-	for (TActorIterator<AItem> ActorItr(GetWorld()); ActorItr; ++ActorItr)
-	{
-		AItem *Mesh = *ActorItr;
-
-
-		if (ActorItr->ActorHasTag(FName("Keycard"))) {
-
-			Keycard = *ActorItr;
-
-			//UE_LOG(LogTemp, Warning, TEXT("Parent: %s"), *ActorItr->GetName());
-			break;
-		}
-	}
-
-	HeldItemRight = Keycard;
-	Keycard->Pickup(R_MotionTracker, EControllerHand::Right);
+	
+	HeldItemRight = NULL;
 	HeldItemLeft = NULL;
 
 }
